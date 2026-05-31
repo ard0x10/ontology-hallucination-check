@@ -1,0 +1,234 @@
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix uni:  <http://example.org/tr-uni#> .
+
+#####################################################################
+# T-BOX: Sınıflar ve Özellikler (Ontoloji şeması)
+#####################################################################
+
+uni:University    a owl:Class ; rdfs:label "Üniversite"@tr .
+uni:PublicUniversity      a owl:Class ; rdfs:subClassOf uni:University ;
+    rdfs:label "Devlet Üniversitesi"@tr .
+uni:FoundationUniversity  a owl:Class ; rdfs:subClassOf uni:University ;
+    rdfs:label "Vakıf Üniversitesi"@tr .
+
+uni:City        a owl:Class ; rdfs:label "Şehir"@tr .
+uni:Faculty     a owl:Class ; rdfs:label "Fakülte"@tr .
+
+uni:foundedYear     a owl:DatatypeProperty ;
+    rdfs:domain uni:University ; rdfs:range xsd:integer ;
+    rdfs:label "Kuruluş Yılı"@tr .
+
+uni:locatedIn       a owl:ObjectProperty ;
+    rdfs:domain uni:University ; rdfs:range uni:City ;
+    rdfs:label "Bulunduğu Şehir"@tr .
+
+uni:hasFaculty      a owl:ObjectProperty ;
+    rdfs:domain uni:University ; rdfs:range uni:Faculty ;
+    rdfs:label "Fakülteleri"@tr .
+
+uni:officialName    a owl:DatatypeProperty ;
+    rdfs:domain uni:University ; rdfs:range xsd:string ;
+    rdfs:label "Resmi Ad"@tr .
+
+uni:website         a owl:DatatypeProperty ;
+    rdfs:domain uni:University ; rdfs:range xsd:anyURI ;
+    rdfs:label "Web Sitesi"@tr .
+
+#####################################################################
+# Şehirler
+#####################################################################
+uni:Istanbul  a uni:City ; rdfs:label "İstanbul"@tr .
+uni:Ankara    a uni:City ; rdfs:label "Ankara"@tr .
+uni:Izmir     a uni:City ; rdfs:label "İzmir"@tr .
+uni:Erzurum   a uni:City ; rdfs:label "Erzurum"@tr .
+uni:Trabzon   a uni:City ; rdfs:label "Trabzon"@tr .
+uni:Eskisehir a uni:City ; rdfs:label "Eskişehir"@tr .
+uni:Konya     a uni:City ; rdfs:label "Konya"@tr .
+uni:Bursa     a uni:City ; rdfs:label "Bursa"@tr .
+
+#####################################################################
+# Fakülteler (örnek küçük küme)
+#####################################################################
+uni:F_Muh   a uni:Faculty ; rdfs:label "Mühendislik Fakültesi"@tr .
+uni:F_Tip   a uni:Faculty ; rdfs:label "Tıp Fakültesi"@tr .
+uni:F_Hukuk a uni:Faculty ; rdfs:label "Hukuk Fakültesi"@tr .
+uni:F_FenEd a uni:Faculty ; rdfs:label "Fen-Edebiyat Fakültesi"@tr .
+uni:F_Iibf  a uni:Faculty ; rdfs:label "İktisadi ve İdari Bilimler Fakültesi"@tr .
+uni:F_Mim   a uni:Faculty ; rdfs:label "Mimarlık Fakültesi"@tr .
+uni:F_Egitim a uni:Faculty ; rdfs:label "Eğitim Fakültesi"@tr .
+uni:F_Iletisim a uni:Faculty ; rdfs:label "İletişim Fakültesi"@tr .
+
+#####################################################################
+# A-BOX: Bireyler (Üniversiteler — doğrulanmış gerçekler)
+#####################################################################
+
+uni:Bogazici a uni:PublicUniversity ;
+    rdfs:label "Boğaziçi Üniversitesi"@tr ;
+    uni:officialName "Boğaziçi Üniversitesi" ;
+    uni:foundedYear 1863 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Muh, uni:F_FenEd, uni:F_Egitim, uni:F_Iibf ;
+    uni:website "https://www.boun.edu.tr"^^xsd:anyURI .
+
+uni:ITU a uni:PublicUniversity ;
+    rdfs:label "İstanbul Teknik Üniversitesi"@tr ;
+    uni:officialName "İstanbul Teknik Üniversitesi" ;
+    uni:foundedYear 1773 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Muh, uni:F_Mim ;
+    uni:website "https://www.itu.edu.tr"^^xsd:anyURI .
+
+uni:ODTU a uni:PublicUniversity ;
+    rdfs:label "Orta Doğu Teknik Üniversitesi"@tr ;
+    uni:officialName "Orta Doğu Teknik Üniversitesi" ;
+    uni:foundedYear 1956 ;
+    uni:locatedIn uni:Ankara ;
+    uni:hasFaculty uni:F_Muh, uni:F_FenEd, uni:F_Mim, uni:F_Iibf, uni:F_Egitim ;
+    uni:website "https://www.metu.edu.tr"^^xsd:anyURI .
+
+uni:Ankara a uni:PublicUniversity ;
+    rdfs:label "Ankara Üniversitesi"@tr ;
+    uni:officialName "Ankara Üniversitesi" ;
+    uni:foundedYear 1946 ;
+    uni:locatedIn uni:Ankara ;
+    uni:hasFaculty uni:F_Hukuk, uni:F_Tip, uni:F_FenEd, uni:F_Iletisim ;
+    uni:website "https://www.ankara.edu.tr"^^xsd:anyURI .
+
+uni:IstanbulU a uni:PublicUniversity ;
+    rdfs:label "İstanbul Üniversitesi"@tr ;
+    uni:officialName "İstanbul Üniversitesi" ;
+    uni:foundedYear 1453 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Hukuk, uni:F_Tip, uni:F_FenEd, uni:F_Iibf ;
+    uni:website "https://www.istanbul.edu.tr"^^xsd:anyURI .
+
+uni:Bilkent a uni:FoundationUniversity ;
+    rdfs:label "Bilkent Üniversitesi"@tr ;
+    uni:officialName "İhsan Doğramacı Bilkent Üniversitesi" ;
+    uni:foundedYear 1984 ;
+    uni:locatedIn uni:Ankara ;
+    uni:hasFaculty uni:F_Muh, uni:F_FenEd, uni:F_Iibf, uni:F_Hukuk ;
+    uni:website "https://www.bilkent.edu.tr"^^xsd:anyURI .
+
+uni:Hacettepe a uni:PublicUniversity ;
+    rdfs:label "Hacettepe Üniversitesi"@tr ;
+    uni:officialName "Hacettepe Üniversitesi" ;
+    uni:foundedYear 1967 ;
+    uni:locatedIn uni:Ankara ;
+    uni:hasFaculty uni:F_Tip, uni:F_Muh, uni:F_FenEd, uni:F_Iibf ;
+    uni:website "https://www.hacettepe.edu.tr"^^xsd:anyURI .
+
+uni:Koc a uni:FoundationUniversity ;
+    rdfs:label "Koç Üniversitesi"@tr ;
+    uni:officialName "Koç Üniversitesi" ;
+    uni:foundedYear 1993 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Muh, uni:F_FenEd, uni:F_Iibf, uni:F_Tip, uni:F_Hukuk ;
+    uni:website "https://www.ku.edu.tr"^^xsd:anyURI .
+
+uni:Sabanci a uni:FoundationUniversity ;
+    rdfs:label "Sabancı Üniversitesi"@tr ;
+    uni:officialName "Sabancı Üniversitesi" ;
+    uni:foundedYear 1994 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Muh, uni:F_FenEd, uni:F_Iibf ;
+    uni:website "https://www.sabanciuniv.edu"^^xsd:anyURI .
+
+uni:Yildiz a uni:PublicUniversity ;
+    rdfs:label "Yıldız Teknik Üniversitesi"@tr ;
+    uni:officialName "Yıldız Teknik Üniversitesi" ;
+    uni:foundedYear 1911 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Muh, uni:F_Mim, uni:F_FenEd ;
+    uni:website "https://www.yildiz.edu.tr"^^xsd:anyURI .
+
+uni:Gazi a uni:PublicUniversity ;
+    rdfs:label "Gazi Üniversitesi"@tr ;
+    uni:officialName "Gazi Üniversitesi" ;
+    uni:foundedYear 1926 ;
+    uni:locatedIn uni:Ankara ;
+    uni:hasFaculty uni:F_Tip, uni:F_Muh, uni:F_Egitim, uni:F_Iibf, uni:F_Hukuk ;
+    uni:website "https://www.gazi.edu.tr"^^xsd:anyURI .
+
+uni:Ege a uni:PublicUniversity ;
+    rdfs:label "Ege Üniversitesi"@tr ;
+    uni:officialName "Ege Üniversitesi" ;
+    uni:foundedYear 1955 ;
+    uni:locatedIn uni:Izmir ;
+    uni:hasFaculty uni:F_Tip, uni:F_Muh, uni:F_FenEd, uni:F_Iibf ;
+    uni:website "https://www.ege.edu.tr"^^xsd:anyURI .
+
+uni:DEU a uni:PublicUniversity ;
+    rdfs:label "Dokuz Eylül Üniversitesi"@tr ;
+    uni:officialName "Dokuz Eylül Üniversitesi" ;
+    uni:foundedYear 1982 ;
+    uni:locatedIn uni:Izmir ;
+    uni:hasFaculty uni:F_Muh, uni:F_Tip, uni:F_Hukuk, uni:F_Iibf ;
+    uni:website "https://www.deu.edu.tr"^^xsd:anyURI .
+
+uni:Marmara a uni:PublicUniversity ;
+    rdfs:label "Marmara Üniversitesi"@tr ;
+    uni:officialName "Marmara Üniversitesi" ;
+    uni:foundedYear 1883 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Iibf, uni:F_Hukuk, uni:F_Iletisim, uni:F_Tip ;
+    uni:website "https://www.marmara.edu.tr"^^xsd:anyURI .
+
+uni:Galatasaray a uni:PublicUniversity ;
+    rdfs:label "Galatasaray Üniversitesi"@tr ;
+    uni:officialName "Galatasaray Üniversitesi" ;
+    uni:foundedYear 1992 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Hukuk, uni:F_Iibf, uni:F_Muh, uni:F_Iletisim ;
+    uni:website "https://www.gsu.edu.tr"^^xsd:anyURI .
+
+uni:TOBB a uni:FoundationUniversity ;
+    rdfs:label "TOBB Ekonomi ve Teknoloji Üniversitesi"@tr ;
+    uni:officialName "TOBB Ekonomi ve Teknoloji Üniversitesi" ;
+    uni:foundedYear 2003 ;
+    uni:locatedIn uni:Ankara ;
+    uni:hasFaculty uni:F_Muh, uni:F_Iibf, uni:F_Hukuk ;
+    uni:website "https://www.etu.edu.tr"^^xsd:anyURI .
+
+uni:Ozyegin a uni:FoundationUniversity ;
+    rdfs:label "Özyeğin Üniversitesi"@tr ;
+    uni:officialName "Özyeğin Üniversitesi" ;
+    uni:foundedYear 2007 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Muh, uni:F_Iibf, uni:F_Hukuk ;
+    uni:website "https://www.ozyegin.edu.tr"^^xsd:anyURI .
+
+uni:Bahcesehir a uni:FoundationUniversity ;
+    rdfs:label "Bahçeşehir Üniversitesi"@tr ;
+    uni:officialName "Bahçeşehir Üniversitesi" ;
+    uni:foundedYear 1998 ;
+    uni:locatedIn uni:Istanbul ;
+    uni:hasFaculty uni:F_Muh, uni:F_Iletisim, uni:F_Iibf, uni:F_Hukuk ;
+    uni:website "https://www.bau.edu.tr"^^xsd:anyURI .
+
+uni:Ataturk a uni:PublicUniversity ;
+    rdfs:label "Atatürk Üniversitesi"@tr ;
+    uni:officialName "Atatürk Üniversitesi" ;
+    uni:foundedYear 1957 ;
+    uni:locatedIn uni:Erzurum ;
+    uni:hasFaculty uni:F_Tip, uni:F_Muh, uni:F_FenEd, uni:F_Egitim ;
+    uni:website "https://www.atauni.edu.tr"^^xsd:anyURI .
+
+uni:KTU a uni:PublicUniversity ;
+    rdfs:label "Karadeniz Teknik Üniversitesi"@tr ;
+    uni:officialName "Karadeniz Teknik Üniversitesi" ;
+    uni:foundedYear 1955 ;
+    uni:locatedIn uni:Trabzon ;
+    uni:hasFaculty uni:F_Muh, uni:F_Tip, uni:F_FenEd, uni:F_Mim ;
+    uni:website "https://www.ktu.edu.tr"^^xsd:anyURI .
+
+uni:ESOGU a uni:PublicUniversity ;
+    rdfs:label "Eskişehir Osmangazi Üniversitesi"@tr ;
+    uni:officialName "Eskişehir Osmangazi Üniversitesi" ;
+    uni:foundedYear 1993 ;
+    uni:locatedIn uni:Eskisehir ;
+    uni:hasFaculty uni:F_Tip, uni:F_Muh, uni:F_Mim, uni:F_FenEd, uni:F_Iibf, uni:F_Egitim ;
+    uni:website "https://www.ogu.edu.tr"^^xsd:anyURI .
